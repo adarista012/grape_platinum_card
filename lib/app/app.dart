@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:grape_platinum_card/app/app_colors.dart';
 import 'package:grape_platinum_card/app/presentation/home/home_page.dart';
 
 class App extends StatelessWidget {
@@ -10,7 +11,7 @@ class App extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: AppColors.main),
         useMaterial3: true,
       ),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
