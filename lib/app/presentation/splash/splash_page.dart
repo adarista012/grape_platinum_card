@@ -9,21 +9,19 @@ class SplashPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.sizeOf(context).width;
     return Scaffold(
       backgroundColor: AppColors.white,
-      body: Center(
-        child: GetBuilder<SplashController>(
-          init: SplashController(),
-          builder: (controller) {
-            return Text(
-              AppConstants.APP_NAME,
-              style: Theme.of(context)
-                  .textTheme
-                  .titleLarge
-                  ?.copyWith(color: AppColors.main),
-            );
-          },
-        ),
+      body: GetBuilder<SplashController>(
+        init: SplashController(),
+        builder: (controller) {
+          return Center(
+            child: Image.asset(
+              '${AppConstants.IMAGES_PATH}grape.png',
+              width: width / 3.2,
+            ),
+          );
+        },
       ),
     );
   }
