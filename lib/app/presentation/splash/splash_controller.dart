@@ -9,7 +9,7 @@ class SplashController extends GetxController {
   }
 
   void _init() async {
-    await Future.delayed(const Duration(seconds: 3));
+    await Future.delayed(const Duration(seconds: 2));
     _routeName = Routes.HOME;
     if (_routeName != null) {
       Get.offAllNamed(_routeName!);
