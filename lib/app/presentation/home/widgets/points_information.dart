@@ -1,4 +1,6 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:grape_platinum_card/app/app_colors.dart';
 import 'package:grape_platinum_card/app/presentation/home/helpers/format_time.dart';
 import 'package:grape_platinum_card/app/presentation/home/widgets/delete_points_dialog.dart';
 
@@ -10,6 +12,14 @@ Widget pointsInformation(
 ) =>
     Dismissible(
       direction: DismissDirection.endToStart,
+      background: Container(
+        alignment: Alignment.centerRight,
+        color: AppColors.red,
+        child: const Icon(
+          Icons.delete,
+          color: AppColors.white,
+        ),
+      ),
       confirmDismiss: (_) async {
         return deletePointsDialog(time, delete);
       },
