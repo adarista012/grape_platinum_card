@@ -3,7 +3,7 @@ import 'package:grape_platinum_card/app/domain/models/points.dart';
 import 'package:grape_platinum_card/app/domain/repositories/points_repository.dart';
 
 class HomeController extends GetxController {
-  final int _padding = 8;
+  final int _padding = 16;
   int get padding => _padding;
 
   int _points = 0;
