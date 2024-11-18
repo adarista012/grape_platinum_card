@@ -3,10 +3,10 @@ import 'package:get/get.dart';
 import 'package:grape_platinum_card/app/app_colors.dart';
 import 'package:grape_platinum_card/app/presentation/home/home_controller.dart';
 import 'package:grape_platinum_card/app/presentation/home/widgets/card.dart';
+import 'package:grape_platinum_card/app/presentation/home/widgets/points_information.dart';
 import 'package:grape_platinum_card/app/presentation/home/widgets/points_label.dart';
 import 'package:grape_platinum_card/app/presentation/widgets/gap.dart';
 import 'package:grape_platinum_card/app/presentation/widgets/horizontal_divider.dart';
-import 'package:intl/intl.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -15,14 +15,14 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     int padding = 8;
 
-    return Scaffold(
-      backgroundColor: AppColors.white,
-      body: Padding(
-        padding: EdgeInsets.all(padding.toDouble()),
-        child: GetBuilder(
-          init: HomeController(),
-          builder: (controler) {
-            return Column(
+    return GetBuilder(
+      init: HomeController(),
+      builder: (controler) {
+        return Scaffold(
+          backgroundColor: AppColors.white,
+          body: Padding(
+            padding: EdgeInsets.all(padding.toDouble()),
+            child: Column(
               children: [
                 Expanded(
                   flex: 4,
@@ -43,44 +43,35 @@ class HomePage extends StatelessWidget {
                 ),
                 Expanded(
                   flex: 5,
-                  child: Container(
-                    child: ListView.builder(
-                      itemCount: 21,
-                      shrinkWrap: true,
-                      padding: EdgeInsets.zero,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 4.8),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                  '${controler.points} ${controler.points == 1 ? 'pt' : 'pts'}'),
-                              Text(_format(DateTime.now())),
-                            ],
-                          ),
-                        );
-                      },
-                    ),
+                  child: ListView.builder(
+                    itemCount: 21,
+                    shrinkWrap: true,
+                    padding: EdgeInsets.zero,
+                    itemBuilder: (BuildContext context, int index) {
+                      return pointsInformation(
+                          controler.points,
+                          DateTime.now(),
+                          index % 2 == 0
+                              ? AppColors.white
+                              : AppColors.main.withOpacity(0.1));
+                    },
                   ),
                 ),
               ],
-            );
-          },
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: AppColors.main,
-        shape: const CircleBorder(),
-        onPressed: () {},
-        child: Text(
-          '+',
-          style: Theme.of(context)
-              .textTheme
-              .headlineLarge
-              ?.copyWith(color: AppColors.white, fontWeight: FontWeight.bold),
-        ),
-      ),
+            ),
+          ),
+          floatingActionButton: FloatingActionButton(
+            backgroundColor: AppColors.main,
+            shape: const CircleBorder(),
+            onPressed: () {},
+            child: Text(
+              '+',
+              style: Theme.of(context).textTheme.headlineLarge?.copyWith(
+                  color: AppColors.white, fontWeight: FontWeight.bold),
+            ),
+          ),
+        );
+      },
     );
   }
 }
@@ -148,11 +139,3 @@ class HomePage extends StatelessWidget {
 //     );
 //   }
 // }
-String _format(DateTime date) {
-  var suffix = "th";
-  var digit = date.day % 10;
-  if ((digit > 0 && digit < 4) && (date.day < 11 || date.day > 13)) {
-    suffix = ["st", "nd", "rd"][digit - 1];
-  }
-  return DateFormat("EEEE d'$suffix' MMM kk:mm").format(date).toString();
-}
