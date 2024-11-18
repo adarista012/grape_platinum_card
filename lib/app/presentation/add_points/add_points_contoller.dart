@@ -44,7 +44,7 @@ class AddPointsContoller extends GetxController {
   }
 
   void onChanged(String string) {
-    if (string.isNotEmpty) {
+    if (string.isNotEmpty && string != '0') {
       _currentPoint = Points(
         points: int.parse(string),
         creationTime: DateTime.now(),
