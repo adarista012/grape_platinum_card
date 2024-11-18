@@ -28,3 +28,9 @@ Follow the instructions below and submit your work in a .ZIP file.
 ## Helpful commands
 
 `flutter clean`
+
+
+## Resources
+
+
+![SimulatorScreenRecording-iPhone16Pro-2024-11-18at15 25 15-ezgif com-speed](https://github.com/user-attachments/assets/9e50e489-f34b-433b-aa28-7a62e6a24d4d)
