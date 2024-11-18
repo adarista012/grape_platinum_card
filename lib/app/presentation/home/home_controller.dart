@@ -24,12 +24,21 @@ class HomeController extends GetxController {
   }
 
   void getPointsList() async {
+    _pointsList = [];
+    _pointsList = await _pointsRepository.getPoints();
+    calculateTotal();
+    update();
+  }
+
+  void deletePoints(String key) async {
+    await _pointsRepository.deletePoints(key);
     _pointsList = await _pointsRepository.getPoints();
     calculateTotal();
     update();
   }
 
   void calculateTotal() {
+    _points = 0;
     for (Points p in _pointsList) {
       _points += p.points;
     }
