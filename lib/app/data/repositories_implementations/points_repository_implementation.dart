@@ -14,4 +14,8 @@ class PointsRepositoryImplementation extends PointsRepository {
   @override
   Future<Response> saveNewPoints(Points point) =>
       localDataSource.saveNewPoints(point);
+
+  @override
+  Future<Response> deletePoints(String key) =>
+      localDataSource.deletePoints(key);
 }
