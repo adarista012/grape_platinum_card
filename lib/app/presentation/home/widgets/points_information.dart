@@ -1,26 +1,31 @@
-import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:grape_platinum_card/app/presentation/home/helpers/format_time.dart';
+import 'package:grape_platinum_card/app/presentation/home/widgets/delete_points_dialog.dart';
 
-Widget pointsInformation(int points, DateTime time, Color color) => Container(
-      padding: const EdgeInsets.symmetric(vertical: 4.8, horizontal: 2.4),
-      decoration: BoxDecoration(
-        color: color,
-        borderRadius: BorderRadius.circular(2.4),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text('$points ${points == 1 ? 'pt' : 'pts'}'),
-          Text(_format(time)),
-        ],
+Widget pointsInformation(
+  int points,
+  DateTime time,
+  Color color,
+  Function(String) delete,
+) =>
+    Dismissible(
+      direction: DismissDirection.endToStart,
+      confirmDismiss: (_) async {
+        return deletePointsDialog(time, delete);
+      },
+      key: Key(time.toString()),
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 4.8, horizontal: 2.4),
+        decoration: BoxDecoration(
+          color: color,
+          borderRadius: BorderRadius.circular(2.4),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text('$points ${points == 1 ? 'pt' : 'pts'}'),
+            Text(formatTime(time)),
+          ],
+        ),
       ),
     );
-
-String _format(DateTime date) {
-  var suffix = "th";
-  var digit = date.day % 10;
-  if ((digit > 0 && digit < 4) && (date.day < 11 || date.day > 13)) {
-    suffix = ["st", "nd", "rd"][digit - 1];
-  }
-  return DateFormat("EEEE d'$suffix' MMM kk:mm").format(date).toString();
-}

@@ -41,7 +41,10 @@ class HomePage extends StatelessWidget {
                 ),
                 Expanded(
                   flex: 5,
-                  child: pointsList(controller.pointsList),
+                  child: pointsList(
+                    controller.pointsList,
+                    controller.deletePoints,
+                  ),
                 ),
               ],
             ),
