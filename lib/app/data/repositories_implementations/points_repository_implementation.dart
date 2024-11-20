@@ -1,6 +1,6 @@
 import 'package:get/get_connect/http/src/response/response.dart';
 import 'package:grape_platinum_card/app/data/sources/local/points_local_data_source.dart';
-import 'package:grape_platinum_card/app/domain/models/points.dart';
+import 'package:grape_platinum_card/app/domain/entities/points.dart';
 import 'package:grape_platinum_card/app/domain/repositories/points_repository.dart';
 
 class PointsRepositoryImplementation extends PointsRepository {
@@ -9,11 +9,11 @@ class PointsRepositoryImplementation extends PointsRepository {
   PointsRepositoryImplementation({required this.localDataSource});
 
   @override
-  Future<List<Points>> getPoints() => localDataSource.getPoints();
+  Future<List<PointsEntity>> getPoints() => localDataSource.getPoints();
 
   @override
-  Future<Response> saveNewPoints(Points point) =>
-      localDataSource.saveNewPoints(point);
+  Future<Response> saveNewPoints(PointsEntity point) =>
+      localDataSource.saveNewPoints(point.toModel());
 
   @override
   Future<Response> deletePoints(String key) =>

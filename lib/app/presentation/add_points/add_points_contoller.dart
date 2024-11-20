@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:grape_platinum_card/app/domain/models/points.dart';
-import 'package:grape_platinum_card/app/domain/repositories/points_repository.dart';
+import 'package:grape_platinum_card/app/domain/entities/points.dart';
+import 'package:grape_platinum_card/app/domain/use_cases/save_points_use_case.dart';
 import 'package:grape_platinum_card/app/presentation/add_points/widgets/add_points_snack.dart';
 import 'package:grape_platinum_card/app/presentation/home/home_controller.dart';
 
 class AddPointsContoller extends GetxController {
-  Points? _currentPoint;
-  Points? get currentPoint => _currentPoint;
+  PointsEntity? _currentPoint;
+  PointsEntity? get currentPoint => _currentPoint;
 
   bool _isLoading = false;
   bool get isLoading => _isLoading;
 
-  final PointsRepository _pointsRepository;
+  final SavePointsUseCase _savePointsUseCase;
   final HomeController _homeControllerRepository;
 
   AddPointsContoller(
-      {required PointsRepository pointsRepository,
+      {required SavePointsUseCase savePointsUseCase,
       required HomeController homeControllerRepository})
-      : _pointsRepository = pointsRepository,
+      : _savePointsUseCase = savePointsUseCase,
         _homeControllerRepository = homeControllerRepository;
 
   void saveNewPoints() async {
@@ -29,7 +29,7 @@ class AddPointsContoller extends GetxController {
     FocusScope.of(context).unfocus();
 
     if (_currentPoint != null) {
-      final response = await _pointsRepository.saveNewPoints(_currentPoint!);
+      final response = await _savePointsUseCase.call(params: _currentPoint);
 
       if (response.statusCode == 200) {
         _homeControllerRepository.getPointsList();
@@ -45,7 +45,7 @@ class AddPointsContoller extends GetxController {
 
   void onChanged(String string) {
     if (string.isNotEmpty && string != '0') {
-      _currentPoint = Points(
+      _currentPoint = PointsEntity(
         points: int.parse(string),
         creationTime: DateTime.now(),
       );

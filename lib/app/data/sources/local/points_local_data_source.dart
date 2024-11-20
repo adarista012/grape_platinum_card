@@ -1,21 +1,21 @@
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:grape_platinum_card/app/domain/models/points.dart';
+import 'package:grape_platinum_card/app/data/models/points.dart';
 
 class PointsLocalDataSource {
   final GetStorage _box;
-  List<Points> list = [];
+  List<PointsModel> list = [];
 
   PointsLocalDataSource({required GetStorage box}) : _box = box;
 
-  Future<List<Points>> getPoints() async {
+  Future<List<PointsModel>> getPoints() async {
     list = [];
     final keys = _box.getKeys();
 
     for (final k in keys) {
       final int points = _box.read(k);
       list.add(
-        Points(
+        PointsModel(
           points: points,
           creationTime: DateTime.parse(k),
         ),
@@ -25,7 +25,7 @@ class PointsLocalDataSource {
     return list;
   }
 
-  Future<Response> saveNewPoints(Points point) async {
+  Future<Response> saveNewPoints(PointsModel point) async {
     await Future.delayed(const Duration(seconds: 1));
 
     await _box.write(point.creationTime.toString(), point.points);
